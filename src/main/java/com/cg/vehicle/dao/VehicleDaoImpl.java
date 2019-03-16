@@ -38,18 +38,10 @@ public class VehicleDaoImpl implements VehicleDao {
 		for (Map.Entry<String, Vehicle> m : vehicleDetails.entrySet()) {
 			if (m.getKey().equals(vehicleNo)) {
 				vehicle = m.getValue();
-				String strDate = myFormat.format(vehicle.getRegisteredDate());
-				String strDate1 = myFormat.format(vehicle.getExpiryDate());
-				Date dateBefore;
-				Date dateAfter;
-				try {
-					dateBefore = myFormat.parse(strDate);
-					dateAfter = myFormat.parse(strDate1);
-					long difference = dateAfter.getTime() - dateBefore.getTime();
+				
+					long difference = vehicle.getExpiryDate().getTime() - vehicle.getRegisteredDate().getTime();
 					vehicle.setDaysLeft((int) (difference / (1000 * 60 * 60 * 24)));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				
 				c++;
 			}
 		}
